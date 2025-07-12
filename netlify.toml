@@ -1,0 +1,21 @@
+# This is the final and correct configuration
+
+[build]
+  # This tells Netlify to change into the 'sydney-rental-taro' 
+  # directory before doing anything else. This is the key fix.
+  base = "sydney-rental-taro"
+
+  # This command will now be run inside the 'sydney-rental-taro' directory
+  command = "npm run build:h5"
+
+  # The 'publish' directory is where the built files are.
+  # Since the build runs inside 'sydney-rental-taro', the output 'dist' 
+  # folder will also be there.
+  publish = "dist"
+
+# This rule ensures that your single-page application (SPA) works correctly.
+# Any request will be redirected to index.html, allowing your app's router to handle it.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
