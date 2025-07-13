@@ -39,10 +39,13 @@ export default function Index() {
     const queryString = buildQueryString(activeFilters);
     const isDefaultFilters = JSON.stringify(activeFilters) === JSON.stringify(INITIAL_FILTERS);
     
+    // Use an environment variable for the API base URL
+    const API_BASE_URL = process.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+
     // Use featured endpoint for default filters, search endpoint otherwise
     const endpoint = isDefaultFilters 
-      ? 'http://127.0.0.1:8000/api/v1/properties/featured'
-      : `http://127.0.0.1:8000/api/v1/properties/search?${queryString}`;
+      ? `${API_BASE_URL}/api/v1/properties/featured`
+      : `${API_BASE_URL}/api/v1/properties/search?${queryString}`;
 
     try {
       const res = await Taro.request({
